@@ -1,4 +1,3 @@
-// Function to draw the grid on the canvas
 function draw(N, perc) {
     var canvas = document.getElementById('animation');
     var ctx = canvas.getContext('2d');
@@ -31,21 +30,21 @@ function draw(N, perc) {
     }
 }
 
-// Global variables for simulation state
+
 var currentPerc, currentDrawPerc, currentN, currentCount = 0, isPaused = false, isRunning = false;
 var lastThresholds = [];
 
 
-// Main function to simulate percolation
+
 function simulatePercolation() {
-    if (isRunning) return; // Prevent multiple simulations
+    if (isRunning) return; 
 
     clearInterval(interval);
     resetSimulationState();
 
     var N = +document.getElementById("gridSize").value;
     var radios = document.getElementsByName('speed');
-    var delay = 50; // Default
+    var delay = 50; 
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             if (radios[i].value == "instant") { delay = 0; }
@@ -121,13 +120,13 @@ function resetSimulation() {
     clearInterval(interval);
     resetSimulationState();
 
-    // Clear canvas
+    
     var canvas = document.getElementById('animation');
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Reset UI
+   
     document.getElementById("simulation-result").innerHTML = "";
     document.getElementById("simulation-result").style.display = "none";
     document.getElementById("currentPercent").textContent = "Sites opened: 0% (0/0)";
@@ -170,7 +169,7 @@ function runStatistics() {
     document.getElementById("statsBtn").disabled = true;
     document.getElementById("statsBtn").textContent = "Running...";
 
-    // Run simulations
+   
     for (var sim = 0; sim < numSims; sim++) {
         var perc = new Percolation(N);
         var count = 0;
@@ -194,13 +193,13 @@ function runStatistics() {
         lastThresholds.push(threshold);
     }
 
-    // Calculate statistics
+   
     var sum = lastThresholds.reduce((a, b) => a + b, 0);
     var avg = (sum / numSims).toFixed(2);
     var min = Math.min(...lastThresholds).toFixed(2);
     var max = Math.max(...lastThresholds).toFixed(2);
 
-    // Display results in modal
+    
     var statsResult = `
         <div class="stats-meta" style="text-align: center; margin-bottom: 20px; font-size: 16px; color: var(--text-color); opacity: 0.8;">
             ${numSims} simulations • Grid: ${N}×${N}
@@ -267,7 +266,7 @@ function exportResults() {
     document.body.removeChild(link);
 }
 
-// Percolation simulation class
+
 function Percolation(N) {
     var size = N;
     var uf = new WeightedQuickUnionUF(N * N + 2);
@@ -322,7 +321,7 @@ function Percolation(N) {
     }
 }
 
-// Union-Find class for efficiently managing and checking connections
+
 function WeightedQuickUnionUF(N) {
     var parent = [];
     var size = [];
