@@ -432,11 +432,6 @@ input[type="radio"]:checked + .radio-option::before {
     background: linear-gradient(135deg, rgba(3, 15, 44, 0.8), rgba(14, 15, 101, 0.8));
     color: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.2);
-   /* box-shadow:
-        0 4px 15px rgba(9, 246, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px) saturate(150%);
-    */
 }
 
 .btn-primary:hover {
@@ -448,11 +443,6 @@ input[type="radio"]:checked + .radio-option::before {
     background: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.2);
-  /*  box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(6px) saturate(130%);
-    */
 }
 
 .btn-secondary:hover {
@@ -679,7 +669,7 @@ input[type="radio"]:checked + .radio-option::before {
         max-width: 100%;
         height: auto;
         max-height: 40vh;
-        margin-left: 80px; /* Adjusted margin for tablets */
+        margin-left: 80px; 
     }
 
     .radio-group {
@@ -804,7 +794,7 @@ input[type="radio"]:checked + .radio-option::before {
 
     canvas {
         max-height: 35vh;
-        margin-left: 35px; /* Adjusted margin for mobile */
+        margin-left: 35px; 
     }
 
     .stats-grid {
