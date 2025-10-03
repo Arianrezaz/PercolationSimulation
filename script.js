@@ -2,32 +2,80 @@ function draw(N, perc) {
     var canvas = document.getElementById('animation');
     var ctx = canvas.getContext('2d');
     var canvasSize = canvas.width;
-    var siteSize = Math.floor(canvasSize / N);
-    var firstSiteLocation = (canvasSize - siteSize * N) / 2;
+    var siteSize = canvasSize / N;
+    
+    // DEBUG: Check for CSS filters affecting canvas
+    console.log('Canvas computed styles:', {
+        backdropFilter: window.getComputedStyle(canvas).backdropFilter,
+        filter: window.getComputedStyle(canvas).filter,
+        opacity: window.getComputedStyle(canvas).opacity
+    });
+    
+    // DEBUG: Check parent container effects
+    var canvasWrapper = canvas.parentElement;
+    console.log('Canvas wrapper styles:', {
+        backdropFilter: window.getComputedStyle(canvasWrapper).backdropFilter,
+        filter: window.getComputedStyle(canvasWrapper).filter
+    });
 
     function loc(coordinate) {
-        return firstSiteLocation + (coordinate - 1) * siteSize;
+        return (coordinate - 1) * siteSize;
     }
 
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvasSize, canvasSize);
-
+    // --- FINAL CORRECTED DRAWING LOGIC ---
     this.drawGrid = function () {
+        // DEBUG: Log canvas rendering context
+        console.log('Canvas context settings:', {
+            fillStyle: ctx.fillStyle,
+            globalAlpha: ctx.globalAlpha,
+            globalCompositeOperation: ctx.globalCompositeOperation,
+            filter: ctx.filter
+        });
+        
+        // 1. Clear the canvas for a fresh start.
+        ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+        // 2. FIX: Use a solid, OPAQUE black background to block the backdrop-filter effect.
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+        // 3. Draw all the cells.
         for (var row = 1; row < N + 1; row++) {
             for (var col = 1; col < N + 1; col++) {
+                var x = loc(col);
+                var y = loc(row);
+
                 if (perc.isFull(row, col)) {
-                    ctx.fillStyle = "#6699FF";
-                    ctx.fillRect(loc(col), loc(row), siteSize, siteSize);
+                    // User's requested color for full sites
+                    ctx.fillStyle = "rgba(0, 69, 99, 0.8)";
                 } else if (perc.isOpen(row, col)) {
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(loc(col), loc(row), siteSize, siteSize);
+                    // More visible white for open sites
+                    ctx.fillStyle = "rgba(255, 255, 255, 1)";
                 } else {
+                    // FIX: Use the same solid black color for blocked sites
                     ctx.fillStyle = "black";
-                    ctx.fillRect(loc(col), loc(row), siteSize, siteSize);
                 }
+                ctx.fillRect(x, y, siteSize, siteSize);
             }
         }
+
+        // 4. Draw the grid lines ON TOP of the cells.
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+        ctx.lineWidth = 0.5;
+        for (var i = 0; i <= N; i++) {
+            var pos = i * siteSize;
+            ctx.beginPath();
+            ctx.moveTo(pos, 0);
+            ctx.lineTo(pos, canvasSize);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(0, pos);
+            ctx.lineTo(canvasSize, pos);
+            ctx.stroke();
+        }
     }
+    // --- END OF FINAL CORRECTED LOGIC ---
 }
 
 
@@ -57,6 +105,10 @@ function simulatePercolation() {
     currentN = N;
     currentPerc = new Percolation(N);
     currentDrawPerc = new draw(N, currentPerc);
+    
+    // Draw the initial empty grid state
+    currentDrawPerc.drawGrid();
+
     currentCount = 0;
     isRunning = true;
     isPaused = false;
@@ -84,6 +136,7 @@ function simulatePercolation() {
         if (!currentPerc.percolates()) {
             openRandom();
             currentCount++;
+            // Redraw the entire grid with the new state
             currentDrawPerc.drawGrid();
             updateStats();
         } else {
@@ -97,6 +150,7 @@ function simulatePercolation() {
             openRandom();
             currentCount++;
         }
+        // The final draw will now be perfectly clean
         currentDrawPerc.drawGrid();
         updateStats();
         finishSimulation();
@@ -120,13 +174,13 @@ function resetSimulation() {
     clearInterval(interval);
     resetSimulationState();
 
-    
-    var canvas = document.getElementById('animation');
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // --- MODIFIED: Reset the canvas to a clean empty grid ---
+    var N = +document.getElementById("gridSize").value;
+    // We need a Percolation object for the draw function to check states (even if empty)
+    var tempPerc = new Percolation(N); 
+    var tempDraw = new draw(N, tempPerc);
+    tempDraw.drawGrid();
 
-   
     document.getElementById("simulation-result").innerHTML = "";
     document.getElementById("simulation-result").style.display = "none";
     document.getElementById("currentPercent").textContent = "Sites opened: 0% (0/0)";
