@@ -376,12 +376,12 @@ input[type="radio"] + .radio-option::before {
 }
 
 input[type="radio"]:checked + .radio-option::before {
-    background: rgba(9, 246, 255, 0.8);
-    border-color: rgba(9, 246, 255, 0.9);
+    background: rgba(0, 69, 99, 0.8);
+    border-color: rgba(0, 77, 110, 0.8);
     box-shadow:
-        0 0 0 3px rgba(9, 246, 255, 0.2),
+        0 0 0 2px rgba(0, 69, 99, 0.8),
         inset 0 0 0 4px rgba(255, 255, 255, 0.9),
-        0 2px 8px rgba(9, 246, 255, 0.3);
+        0 2px 8px rgba(0, 69, 99, 0.8);
 }
 
 .button-group {
