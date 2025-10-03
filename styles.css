@@ -242,19 +242,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 350px;
-    max-width: 450px;
+    min-width: 600px;
+    max-width: 600px;
     padding: 20px;
 }
 
 canvas {
-    border: 2px 2px solid #d1d1d1;
+    border: 2px solid #939393;
     border-radius: var(--border-radius);
-    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);*/
     transition: var(--transition);
     max-width: 100%;
     height: auto;
-    margin-left: 181px; /* 5 cm to the right */
+    display: block;
 }
 
 canvas:hover {
@@ -697,7 +696,6 @@ input[type="radio"]:checked + .radio-option::before {
     }
 }
 
-/* Statistics Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
