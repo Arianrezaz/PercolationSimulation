@@ -105,6 +105,6 @@ This project is open source and available under the **MIT License**.
 
 ⭐ **Star this repo** if you found it helpful!
 
-[🌐 Live Demo](https://arianrezaz.github.io/Percolation-Simulation/) • [🐛 Report Issues](https://github.com/Arianrezaz/Percolation-Simulation/issues) • [💡 Request Features](https://github.com/Arianrezaz/Percolation-Simulation/discussions)
+[🌐 Live Demo](https://percolationsimulation.pages.dev/) • [🐛 Report Issues](https://github.com/Arianrezaz/Percolation-Simulation/issues) • [💡 Request Features](https://github.com/Arianrezaz/Percolation-Simulation/discussions)
 
 </div>
