@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="script.js" defer></script>
-    <script>var interval = null;</script> <!-- This lets me clear the interval to avoid duplicate runs on refresh -->
+    <script>var interval = null;</script>
 </head>
 <body style="direction: ltr; text-align: center;">
 <div class="container">
@@ -50,10 +50,9 @@
         <div id="simulation-result" style="display: none;"></div>
     </div>
     <div class="canvas-wrapper">
-        <canvas id="animation" width="400" height="400"></canvas>
+        <canvas id="animation" width="600" height="600"></canvas>
     </div>
 
-    <!-- Statistics Modal -->
     <div id="stats-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
